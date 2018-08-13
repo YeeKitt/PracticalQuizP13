@@ -1,6 +1,7 @@
 package sg.edu.rp.c346.practicalquiz;
 
 import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.SharedPreferences;
@@ -50,6 +51,17 @@ public class MainActivity extends AppCompatActivity {
         String msg = radioButton.getText().toString();
 
         prefEdit.putString("msg", msg);
+        prefEdit.putInt("id", id);
         prefEdit.commit();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        SharedPreferences prefs = getApplicationContext().getSharedPreferences("MyPref", Context.MODE_PRIVATE);
+
+        int id = prefs.getInt("id", 0);
+        rg.check(id);
     }
 }
